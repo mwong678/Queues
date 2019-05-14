@@ -8,8 +8,10 @@ import java.util.Iterator;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
-    public RandomizedQueue(){
+    private int[] queue;
 
+    public RandomizedQueue(){
+        this.queue = new int[1]; 
     }
 
     public boolean isEmpty(){
