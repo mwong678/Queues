@@ -47,17 +47,7 @@ public class RandomizedQueue < Item > implements Iterable < Item > {
                 newQueue[j++] = this.queue[i];
             }
         }
-        this.queue = newQueue;
-    }
 
-    private void shift() {
-        Item[] newQueue = (Item[]) new Object[this.current];
-        int j = 0;
-        for (int i = 0; i < this.queue.length; i++) {
-            if (this.queue[i] != null) {
-                newQueue[j++] = this.queue[i];
-            }
-        }
         this.queue = newQueue;
     }
 
@@ -71,10 +61,9 @@ public class RandomizedQueue < Item > implements Iterable < Item > {
         this.queue[randIndex] = null;
         this.current--;
         if (this.current >= 0 && this.current == this.queue.length / 4) {
-            resize(this.current / 2);
+            resize(this.queue.length / 2);
         } else {
-            //shift()
-            resize(this.current);
+            resize(this.queue.length);
         }
         return temp;
     }
@@ -108,13 +97,16 @@ public class RandomizedQueue < Item > implements Iterable < Item > {
             if (isEmpty()) {
                 return false;
             }
-            return (this.count < size() - 1);
+            return (this.count < size());
         }
         public void remove() {
             throw new java.lang.UnsupportedOperationException();
         }
         public Item next() {
             if (isEmpty()) {
+                throw new java.util.NoSuchElementException();
+            }
+            if (!hasNext()){
                 throw new java.util.NoSuchElementException();
             }
             while (this.queueI[this.count] == null) {
@@ -132,18 +124,26 @@ public class RandomizedQueue < Item > implements Iterable < Item > {
         while (ri.hasNext()) {
             System.out.print(ri.next() + "\t");
         }
-        System.out.print(ri.next() + "\t");
         System.out.println();
+    }
+
+    private void print2(){
+        if (isEmpty()) {
+            return;
+        }
+
+        for (int i = 0; i < this.queue.length; i++){
+            System.out.print(this.queue[i]+ " ");
+        }
+        System.out.println("Length: "+this.queue.length);
     }
 
     public static void main(String[] args) {
         RandomizedQueue < Integer > rq = new RandomizedQueue < Integer > ();
-        System.out.println(rq.isEmpty());
-        rq.enqueue(2);
-        System.out.println( rq.size());
-        System.out.println(rq.dequeue());
-        rq.enqueue(3);
-        //for (int i = 0; i < 5; i++)
-            //rq.print();
+        for (int  i= 0;i<4;i++){
+            rq.enqueue(i);
+        }
+        rq.print();
+
     }
 }

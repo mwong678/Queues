@@ -123,8 +123,6 @@ public class Deque < Item > implements Iterable < Item > {
                 i = dqi.next();
                 System.out.print(i + "->");
             }
-            i = dqi.next();
-            System.out.print(i + "->");
             System.out.println();
         }
     }
@@ -135,14 +133,17 @@ public class Deque < Item > implements Iterable < Item > {
             if (isEmpty()) {
                 return false;
             }
-            return !(current.next == null);
+            return current != null;
         }
         public void remove() {
             throw new java.lang.UnsupportedOperationException();
         }
         public Item next() {
             if (isEmpty()) {
-                return null;
+                throw new java.util.NoSuchElementException();
+            }
+            if (!hasNext()){
+                throw new java.util.NoSuchElementException();
             }
             Node temp = current;
             current = current.next;
